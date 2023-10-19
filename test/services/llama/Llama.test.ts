@@ -35,58 +35,58 @@ describe('test Llama', () => {
 
   describe('test getLlamaById', () => {
     test('test api call', () => {
-      const scope = nock('http://localhost:8000').get('/llama/3082961913').reply(200, { data: {} });
-      return sdk.llama.getLlamaById(3082961913).then((r: any) => expect(r.data).toEqual({}));
+      const scope = nock('http://localhost:8000').get('/llama/6199904496').reply(200, { data: {} });
+      return sdk.llama.getLlamaById(6199904496).then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
-      const scope = nock('http://localhost:8000').get('/llama/8357115569').reply(200, { data: {} });
+      const scope = nock('http://localhost:8000').get('/llama/3865634788').reply(200, { data: {} });
       return expect(async () => await sdk.llama.getLlamaById()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
-      const scope = nock('http://localhost:8000').get('/llama/2554123629').reply(404, { data: {} });
-      return expect(async () => await sdk.llama.getLlamaById(2554123629)).rejects.toThrow();
+      const scope = nock('http://localhost:8000').get('/llama/8891096269').reply(404, { data: {} });
+      return expect(async () => await sdk.llama.getLlamaById(8891096269)).rejects.toThrow();
     });
   });
 
   describe('test updateLlama', () => {
     test('test api call', () => {
-      const scope = nock('http://localhost:8000').put('/llama/4093906234').reply(200, { data: {} });
-      return sdk.llama.updateLlama({}, 4093906234).then((r: any) => expect(r.data).toEqual({}));
+      const scope = nock('http://localhost:8000').put('/llama/1181153677').reply(200, { data: {} });
+      return sdk.llama.updateLlama({}, 1181153677).then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
-      const scope = nock('http://localhost:8000').put('/llama/7849342604').reply(200, { data: {} });
+      const scope = nock('http://localhost:8000').put('/llama/4429459656').reply(200, { data: {} });
       return expect(async () => await sdk.llama.updateLlama()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
-      const scope = nock('http://localhost:8000').put('/llama/3308079717').reply(404, { data: {} });
-      return expect(async () => await sdk.llama.updateLlama({}, 3308079717)).rejects.toThrow();
+      const scope = nock('http://localhost:8000').put('/llama/5014078563').reply(404, { data: {} });
+      return expect(async () => await sdk.llama.updateLlama({}, 5014078563)).rejects.toThrow();
     });
   });
 
   describe('test deleteLlama', () => {
     test('test api call', () => {
       const scope = nock('http://localhost:8000')
-        .delete('/llama/2687793857')
+        .delete('/llama/2407481366')
         .reply(200, { data: {} });
-      return sdk.llama.deleteLlama(2687793857).then((r: any) => expect(r.data).toEqual({}));
+      return sdk.llama.deleteLlama(2407481366).then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('http://localhost:8000')
-        .delete('/llama/8605366062')
+        .delete('/llama/5482354949')
         .reply(200, { data: {} });
       return expect(async () => await sdk.llama.deleteLlama()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('http://localhost:8000')
-        .delete('/llama/2511697224')
+        .delete('/llama/4139487988')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.llama.deleteLlama(2511697224)).rejects.toThrow();
+      return expect(async () => await sdk.llama.deleteLlama(4139487988)).rejects.toThrow();
     });
   });
 });
