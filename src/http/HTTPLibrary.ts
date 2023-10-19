@@ -5,7 +5,7 @@ import throwHttpError from './httpExceptions';
 
 export default class HTTPLibrary implements HTTPClient {
   readonly userAgentHeader: Headers = {
-    'User-Agent': 'liblab/0.1.20 Llamastore/0.0.1 typescript/5.2.2',
+    'User-Agent': 'liblab/0.1.19 Llamastore/0.0.1 typescript/5.2.2',
   };
 
   readonly retryAttempts: number = 3;
