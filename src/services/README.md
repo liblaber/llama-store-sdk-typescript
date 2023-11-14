@@ -139,7 +139,7 @@ import { Llamastore } from './src';
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llamaPicture.deleteLlamaPicture(2);
+  const result = await sdk.llamaPicture.deleteLlamaPicture(1);
   console.log(result);
 })();
 
@@ -171,7 +171,7 @@ const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN })
 
 (async () => {
   const input = {};
-  const result = await sdk.llamaPicture.updateLlamaPicture(input, 1);
+  const result = await sdk.llamaPicture.updateLlamaPicture(input, 2);
   console.log(result);
 })();
 
@@ -254,7 +254,7 @@ import { Llamastore } from './src';
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llama.getLlamaById(1);
+  const result = await sdk.llama.getLlamaById(2);
   console.log(result);
 })();
 
@@ -316,7 +316,7 @@ const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN })
 
 (async () => {
   const input = { age: 5, color: 'brown', name: 'libby the llama', rating: 4 };
-  const result = await sdk.llama.updateLlama(input, 1);
+  const result = await sdk.llama.updateLlama(input, 2);
   console.log(result);
 })();
 
@@ -374,12 +374,10 @@ User
 ```Typescript
 import { Llamastore } from './src';
 
-
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.user
-    .getUserByEmail('x!p9q@FY_N]R{.C'9C');
+  const result = await sdk.user.getUserByEmail('WKyk@ !.*;di.dP@t._');
   console.log(result);
 })();
 

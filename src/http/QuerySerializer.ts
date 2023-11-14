@@ -1,6 +1,6 @@
-type Explode = boolean;
-type QueryStyles = 'form' | 'spaceDelimited' | 'pipeDelimited' | 'deepObject';
-type PathStyles = 'simple' | 'label' | 'matrix';
+export type Explode = boolean;
+export type QueryStyles = 'form' | 'spaceDelimited' | 'pipeDelimited' | 'deepObject';
+export type PathStyles = 'simple' | 'label' | 'matrix';
 
 const styleMethods: Record<string, Function> = {
   simple: (value: unknown, explode: boolean) => {
