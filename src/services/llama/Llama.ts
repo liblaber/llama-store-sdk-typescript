@@ -1,12 +1,19 @@
 import BaseService from '../../BaseService';
 
+import CustomHook from '../../hooks/CustomHook';
+import { Request } from '../../hooks/Hook';
+
 import { GetLlamasResponse } from './models/GetLlamasResponse';
 import { Llama } from './models/Llama';
-import { LlamaCreate } from './models/LlamaCreate';
+import { CreateLlamaRequest } from './models/CreateLlamaRequest';
+import { UpdateLlamaRequest } from './models/UpdateLlamaRequest';
 
 import { serializePath } from '../../http/QuerySerializer';
 
+const hook: CustomHook = new CustomHook();
+
 export class LlamaService extends BaseService {
+
   /**
    * @summary Get Llamas
    * @description Get all the llamas.
@@ -14,16 +21,20 @@ export class LlamaService extends BaseService {
    * @returns {Promise<GetLlamasResponse>} - The promise with the result
    */
   async getLlamas(): Promise<GetLlamasResponse> {
+
+    const headers: { [key: string]: string } = {};
     const urlEndpoint = '/llama';
-    const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.httpClient.get(
-      finalUrl,
+    const finalUrl = encodeURI(`${this.baseUrl+urlEndpoint}`);
+    const request:Request = { method: 'GET', url: finalUrl, headers };
+    await hook.beforeRequest(request);
+    const response:any = await this.httpClient.get(
+      request.url,
       {},
       {
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
+      ...this.getAuthorizationHeader(),
+      ...request.headers,
+    }, true);
+    await hook.afterResponse({ method: 'GET', url: request.url, headers: request.headers }, { data: response.data, headers: response.headers, status: response.status });
     const responseModel = response.data as GetLlamasResponse;
     return responseModel;
   }
@@ -34,22 +45,30 @@ export class LlamaService extends BaseService {
 
    * @returns {Promise<Llama>} - The promise with the result
    */
-  async createLlama(input: LlamaCreate): Promise<Llama> {
-    const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
+  async createLlama(input: CreateLlamaRequest): Promise<Llama> {
+
+    const headers: { [key: string]: string } = {'Content-Type' : 'application/json'};
     const urlEndpoint = '/llama';
-    const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.httpClient.post(
-      finalUrl,
-      input,
+    const finalUrl = encodeURI(`${this.baseUrl+urlEndpoint}`);
+    const request:Request = { method: 'POST', url: finalUrl, input, headers };
+    await hook.beforeRequest(request);
+    const response:any = await this.httpClient.post(
+      request.url,
+      request.input,
       {
-        ...headers,
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
+      ...this.getAuthorizationHeader(),
+      ...request.headers,
+    }, true);
+    await hook.afterResponse({ method: 'POST', url: request.url, input: request.input, headers: request.headers }, { data: response.data, headers: response.headers, status: response.status });
     const responseModel = response.data as Llama;
     return responseModel;
   }
+
+
+
+
+
+
 
   /**
    * @summary Get Llama
@@ -59,26 +78,27 @@ export class LlamaService extends BaseService {
    * @returns {Promise<Llama>} - The promise with the result
    */
   async getLlamaById(llamaId: number): Promise<Llama> {
-    if (llamaId === undefined) {
-      throw new Error('The following parameter is required: llamaId, cannot be empty or blank');
+    if( llamaId === undefined ){
+      throw new Error('The following parameter is required: llamaId, cannot be empty or blank')
     }
+    const headers: { [key: string]: string } = {};
     let urlEndpoint = '/llama/{llama_id}';
-    urlEndpoint = urlEndpoint.replace(
-      '{llama_id}',
-      encodeURIComponent(serializePath('simple', false, llamaId, undefined)),
-    );
-    const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.httpClient.get(
-      finalUrl,
+    urlEndpoint = urlEndpoint.replace('{llama_id}', serializePath('simple', false,  llamaId, undefined));
+    const finalUrl = encodeURI(`${this.baseUrl+urlEndpoint}`);
+    const request:Request = { method: 'GET', url: finalUrl, headers };
+    await hook.beforeRequest(request);
+    const response:any = await this.httpClient.get(
+      request.url,
       {},
       {
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
+      ...this.getAuthorizationHeader(),
+      ...request.headers,
+    }, true);
+    await hook.afterResponse({ method: 'GET', url: request.url, headers: request.headers }, { data: response.data, headers: response.headers, status: response.status });
     const responseModel = response.data as Llama;
     return responseModel;
   }
+
 
   /**
    * @summary Update Llama
@@ -89,29 +109,28 @@ When updating a llama, the llama name must be unique. If the llama name is not u
    * @param llamaId The llama's ID
    * @returns {Promise<Llama>} - The promise with the result
    */
-  async updateLlama(input: LlamaCreate, llamaId: number): Promise<Llama> {
-    if (llamaId === undefined) {
-      throw new Error('The following parameter is required: llamaId, cannot be empty or blank');
+  async updateLlama(input: UpdateLlamaRequest, llamaId: number): Promise<Llama> {
+    if( llamaId === undefined ){
+      throw new Error('The following parameter is required: llamaId, cannot be empty or blank')
     }
-    const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
+    const headers: { [key: string]: string } = {'Content-Type' : 'application/json'};
     let urlEndpoint = '/llama/{llama_id}';
-    urlEndpoint = urlEndpoint.replace(
-      '{llama_id}',
-      encodeURIComponent(serializePath('simple', false, llamaId, undefined)),
-    );
-    const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.httpClient.put(
-      finalUrl,
-      input,
+    urlEndpoint = urlEndpoint.replace('{llama_id}', serializePath('simple', false,  llamaId, undefined));
+    const finalUrl = encodeURI(`${this.baseUrl+urlEndpoint}`);
+    const request:Request = { method: 'PUT', url: finalUrl, input, headers };
+    await hook.beforeRequest(request);
+    const response:any = await this.httpClient.put(
+      request.url,
+      request.input,
       {
-        ...headers,
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
+      ...this.getAuthorizationHeader(),
+      ...request.headers,
+    }, true);
+    await hook.afterResponse({ method: 'PUT', url: request.url, input: request.input, headers: request.headers }, { data: response.data, headers: response.headers, status: response.status });
     const responseModel = response.data as Llama;
     return responseModel;
   }
+
 
   /**
    * @summary Delete Llama
@@ -121,24 +140,29 @@ When updating a llama, the llama name must be unique. If the llama name is not u
    * @returns {Promise<any>} - The promise with the result
    */
   async deleteLlama(llamaId: number): Promise<any> {
-    if (llamaId === undefined) {
-      throw new Error('The following parameter is required: llamaId, cannot be empty or blank');
+    if( llamaId === undefined ){
+      throw new Error('The following parameter is required: llamaId, cannot be empty or blank')
     }
+    const headers: { [key: string]: string } = {};
     let urlEndpoint = '/llama/{llama_id}';
-    urlEndpoint = urlEndpoint.replace(
-      '{llama_id}',
-      encodeURIComponent(serializePath('simple', false, llamaId, undefined)),
-    );
-    const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.httpClient.delete(
-      finalUrl,
-      {},
+    urlEndpoint = urlEndpoint.replace('{llama_id}', serializePath('simple', false,  llamaId, undefined));
+    const finalUrl = encodeURI(`${this.baseUrl+urlEndpoint}`);
+    const request:Request = { method: 'DELETE', url: finalUrl, input: {}, headers };
+    await hook.beforeRequest(request);
+    const response:any = await this.httpClient.delete(
+      request.url,
+      request.input,
       {
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
+      ...this.getAuthorizationHeader(),
+      ...request.headers,
+    }, true);
+    await hook.afterResponse({ method: 'DELETE', url: request.url, headers: request.headers }, { data: response.data, headers: response.headers, status: response.status });
     const responseModel = response.data;
     return responseModel;
   }
+
+
+
+
+
 }
