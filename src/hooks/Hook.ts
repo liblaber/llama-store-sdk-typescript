@@ -8,6 +8,15 @@ export interface Request {
 export interface Response {
   data: object;
   headers: object;
+  status: number;
+}
+
+export interface Exception extends Error {
+  title: string;
+  type?: string;
+  detail?: string;
+  instance?: string;
+  statusCode: number;
 }
 
 export interface Hook {
@@ -15,5 +24,5 @@ export interface Hook {
 
   afterResponse(request: Request, response: Response): Promise<void>;
 
-  onError(error: object): Promise<void>;
+  onError(error: Exception): Promise<void>;
 }

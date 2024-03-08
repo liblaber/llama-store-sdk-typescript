@@ -73,13 +73,15 @@ LlamaId
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
   const input = {};
-  const result = await sdk.llamaPicture.createLlamaPicture(input, 2);
+  const result = await sdk.llamaPicture
+    .createLlamaPicture(input, 2);
   console.log(result);
 })();
 
@@ -104,12 +106,14 @@ Returns a dict object.
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llamaPicture.getLlamaPictureByLlamaId(1);
+  const result = await sdk.llamaPicture
+    .getLlamaPictureByLlamaId(1);
   console.log(result);
 })();
 
@@ -134,12 +138,14 @@ Returns a dict object.
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llamaPicture.deleteLlamaPicture(2);
+  const result = await sdk.llamaPicture
+    .deleteLlamaPicture(1);
   console.log(result);
 })();
 
@@ -165,13 +171,15 @@ LlamaId
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
   const input = {};
-  const result = await sdk.llamaPicture.updateLlamaPicture(input, 1);
+  const result = await sdk.llamaPicture
+    .updateLlamaPicture(input, 2);
   console.log(result);
 })();
 
@@ -195,13 +203,15 @@ Llama
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const input = { age: 5, color: 'brown', name: 'libby the llama', rating: 4 };
-  const result = await sdk.llama.createLlama(input);
+  const input = {"age":5,"color":"brown","name":"libby the llama","rating":4};
+  const result = await sdk.llama
+    .createLlama(input);
   console.log(result);
 })();
 
@@ -219,12 +229,14 @@ GetLlamasResponse
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llama.getLlamas();
+  const result = await sdk.llama
+    .getLlamas();
   console.log(result);
 })();
 
@@ -249,12 +261,14 @@ Llama
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llama.getLlamaById(1);
+  const result = await sdk.llama
+    .getLlamaById(2);
   console.log(result);
 })();
 
@@ -279,12 +293,14 @@ Returns a dict object.
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.llama.deleteLlama(1);
+  const result = await sdk.llama
+    .deleteLlama(1);
   console.log(result);
 })();
 
@@ -310,13 +326,15 @@ Llama
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const input = { age: 5, color: 'brown', name: 'libby the llama', rating: 4 };
-  const result = await sdk.llama.updateLlama(input, 1);
+  const input = {"age":5,"color":"brown","name":"libby the llama","rating":4};
+  const result = await sdk.llama
+    .updateLlama(input, 1);
   console.log(result);
 })();
 
@@ -340,13 +358,15 @@ ApiToken
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const input = { email: 'noone@example.com', password: 'Password123!' };
-  const result = await sdk.token.createApiToken(input);
+  const input = {"email":"noone@example.com","password":"Password123!"};
+  const result = await sdk.token
+    .createApiToken(input);
   console.log(result);
 })();
 
@@ -372,14 +392,14 @@ User
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
 
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.user
-    .getUserByEmail('x!p9q@FY_N]R{.C'9C');
+    .getUserByEmail('E?!/@`eDPX#.cy.&*0R"');
   console.log(result);
 })();
 
@@ -402,13 +422,15 @@ User
 
 **Example Usage Code Snippet**
 ```Typescript
-import { Llamastore } from './src';
+import { Llamastore } from 'llamastore';
+
 
 const sdk = new Llamastore({ accessToken: process.env.LLAMASTORE_ACCESS_TOKEN });
 
 (async () => {
-  const input = { email: 'noone@example.com', password: 'Password123!' };
-  const result = await sdk.user.registerUser(input);
+  const input = {"email":"noone@example.com","password":"Password123!"};
+  const result = await sdk.user
+    .registerUser(input);
   console.log(result);
 })();
 
