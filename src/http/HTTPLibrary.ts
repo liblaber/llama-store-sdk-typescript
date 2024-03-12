@@ -1,22 +1,29 @@
+
+
+
 import axios, { AxiosError } from 'axios';
 
 import HTTPClient, { Headers } from './HTTPClient';
 import throwHttpError from './httpExceptions';
 
+// Ignore TS errors when checking if we are running inside Deno or Bun
+declare const Deno: any;
+declare const Bun: any;
+
+
 export default class HTTPLibrary implements HTTPClient {
-  readonly userAgentHeader: Headers = {
-    'User-Agent': 'liblab/0.1.20 Llamastore/0.0.1 typescript/5.2.2',
-  };
+    readonly retryAttempts: number = 3;
+    readonly retryDelayMs: number = 150;
 
-  readonly retryAttempts: number = 3;
-
-  readonly retryDelayMs: number = 150;
+    
+    
+        
 
   async get(url: string, input: any, headers: Headers, retry: boolean = false): Promise<any> {
     const request = () =>
       axios.get(url, {
         headers: { ...headers, ...this.getUserAgentHeader() },
-        data: Object.keys(input).length > 0 ? input : undefined,
+        data: Object.keys(input).length > 0 ?  input : undefined,
       });
 
     const response = retry
@@ -27,7 +34,7 @@ export default class HTTPLibrary implements HTTPClient {
 
   async post(url: string, input: any, headers: Headers, retry: boolean = false): Promise<any> {
     const request = () =>
-      axios.post(url, input, {
+      axios.post(url,  input, {
         headers: { ...headers, ...this.getUserAgentHeader() },
       });
 
@@ -42,7 +49,7 @@ export default class HTTPLibrary implements HTTPClient {
     const request = () =>
       axios.delete(url, {
         headers: { ...headers, ...this.getUserAgentHeader() },
-        data: input,
+        data:  input,
       });
 
     const response = retry
@@ -54,7 +61,7 @@ export default class HTTPLibrary implements HTTPClient {
 
   async put(url: string, input: any, headers: Headers, retry: boolean = false): Promise<any> {
     const request = () =>
-      axios.put(url, input, {
+      axios.put(url,  input, {
         headers: { ...headers, ...this.getUserAgentHeader() },
       });
 
@@ -67,7 +74,7 @@ export default class HTTPLibrary implements HTTPClient {
 
   async patch(url: string, input: any, headers: Headers, retry: boolean = false): Promise<any> {
     const request = () =>
-      axios.patch(url, input, {
+      axios.patch(url,  input, {
         headers: { ...headers, ...this.getUserAgentHeader() },
       });
 
@@ -85,7 +92,7 @@ export default class HTTPLibrary implements HTTPClient {
       result = await callbackFn();
     } catch (e: any) {
       if ((e as AxiosError).isAxiosError) {
-        if (e.response) {
+        if (e.response){
           if (![500, 503, 504].includes(e.response.status)) {
             return e.response;
           }
@@ -100,6 +107,7 @@ export default class HTTPLibrary implements HTTPClient {
       }
     }
 
+
     return result;
   }
 
@@ -111,10 +119,26 @@ export default class HTTPLibrary implements HTTPClient {
     return response;
   }
 
-  private getUserAgentHeader(): Headers {
-    if (typeof window !== 'undefined') {
-      return {};
+    
+
+    private getUserAgentHeader(): Headers {
+        const userAgentBase = 'Llamastore/0.0.3';
+
+        let userAgent = '';
+        if (typeof window !== 'undefined') {
+            return {};
+        } else if (typeof process !== 'undefined') {
+            userAgent = `Node.js/${process.version} ${userAgentBase}`;
+        } else if (typeof Deno !== 'undefined') {
+            userAgent = `Deno/${Deno.version.deno} ${userAgentBase}`;
+        } else if (typeof Bun !== "undefined") {
+            userAgent = `Bun/${Bun.version} ${userAgentBase}`;
+        } else {
+            userAgent = userAgentBase;
+        }
+
+        return {'User-Agent': userAgent};
     }
-    return this.userAgentHeader;
-  }
+
+
 }
