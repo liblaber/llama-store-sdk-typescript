@@ -1,2 +1,2 @@
 export type { ApiToken } from './models/ApiToken';
-export type { ApiTokenRequest } from './models/ApiTokenRequest';
+export type { CreateApiTokenRequest } from './models/CreateApiTokenRequest';
